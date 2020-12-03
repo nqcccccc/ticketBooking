@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="fitXY"
+        android:id="@+id/imgNews"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTittleNews"
+        android:textSize="22sp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+        android:text="Đây là content mẫu"/>
+
+</LinearLayout>

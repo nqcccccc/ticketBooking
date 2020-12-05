@@ -58,14 +58,18 @@
 
 
                 <!--Movie Select-->
-                <androidx.viewpager2.widget.ViewPager2
+                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
                     android:id="@+id/vp2Poster"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:layout_marginTop="10dp"
-                    android:paddingStart="80dp"
-                    android:paddingEnd="80dp"/>
+                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
+                    app:icvp_scroll_duration="250"
+                    app:icvp_center_page_scale_offset="30dp"
+                    app:icvp_min_page_scale_offset="5dp"
+                    app:icvp_max_page_scale="0.8"
+                    app:icvp_min_page_scale="0.55"
+                    app:icvp_medium_scaled="false"/>
                 <!--News-->
                 <ListView
                     android:layout_marginTop="10dp"

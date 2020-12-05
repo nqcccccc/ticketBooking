@@ -11,18 +11,23 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.bookingticket.Retrofit2.APIUtils;
 import com.example.bookingticket.Retrofit2.DataClient;
+import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +46,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private ListView lvNavigation,lvNews;
     private ImageButton btnMenu;
     private MenuAdapter menuAdapter;
-    //private ViewPager vpSlider;
-    private ViewPager2 vp2Poster;
     private ImageSlider imgSlider;
-
-    private static final float MIN_SCALE = 0.85f;
-    private static final float MIN_ALPHA = 0.5f;
+    private ImageView imgAva;
+    private TextView tvCName;
+    private HorizontalInfiniteCycleViewPager vp2Poster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +57,13 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_dashboard);
 
         init();
+        initData();
         actionToolbar();
         initMenuData();
         slider();
         poster();
         news();
     }
-
     //Start init
     private void init() {
         drawerLayout= findViewById(R.id.drawerLayout);
@@ -74,14 +77,25 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         btnMenu = findViewById(R.id.btnMenu);
 
-       // vpSlider = findViewById(R.id.vpSlider);
         imgSlider = findViewById(R.id.imgSlider);
-        vp2Poster = findViewById(R.id.vp2Poster);
+        imgAva = findViewById(R.id.imgAva);
+
+        tvCName = findViewById(R.id.tvCName);
+
+        vp2Poster = (HorizontalInfiniteCycleViewPager) findViewById(R.id.vp2Poster);
 
         btnMenu.setOnClickListener(this);
     }
     //End init
 
+    //Get Intent data
+    private void initData() {
+        Intent intent = getIntent();
+        ArrayList<Account> arrayUser = intent.getParcelableArrayListExtra("arrayUser");
+
+        tvCName.setText(arrayUser.get(0).getUser());
+        Picasso.get().load(arrayUser.get(0).getAvatar()).into(imgAva);
+    }
     // Click event
     @Override
     public void onClick(View v) {
@@ -149,12 +163,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 List<ItemPoster> data = new ArrayList<>();
                 if(arrayPoster.size()>0){
                     for(int i=0;i<arrayPoster.size();i++){
-                        data.add(new ItemPoster(arrayPoster.get(i).getPoster()));
+                        data.add(new ItemPoster(arrayPoster.get(i).getPoster(),Integer.parseInt(arrayPoster.get(i).getId())));
                     }
-                    vp2Poster.setAdapter(new PosterAdapter(data,vp2Poster));
                 }else{
-                    Log.d("TAG", "Empty ");
+                    Log.d("TAG","Empty ");
                 }
+                PosterAdapter adapter = new PosterAdapter(data,getBaseContext());
+                vp2Poster.setAdapter(adapter);
+                vp2Poster.notifyDataSetChanged();
             }
 
             @Override
@@ -162,41 +178,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
-
-        vp2Poster.setClipToPadding(false);
-        vp2Poster.setClipChildren(false);
-        vp2Poster.setOffscreenPageLimit(3);
-        vp2Poster.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
-        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(5));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(View view, float position) {
-                int pageWidth = view.getWidth();
-                int pageHeight = view.getHeight();
-
-                if (position < -1) {
-                    view.setAlpha(0f);
-                } else if (position <= 1) {
-                    float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-                    float vertMargin = pageHeight * (1 - scaleFactor) / 2;
-                    float horzMargin = pageWidth * (1 - scaleFactor) / 2;
-                    if (position < 0) {
-                        view.setTranslationX(horzMargin - vertMargin / 2);
-                    } else {
-                        view.setTranslationX(-horzMargin + vertMargin / 2);
-                    }
-                    view.setScaleX(scaleFactor);
-                    view.setScaleY(scaleFactor);
-                    view.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-                } else {
-                    view.setAlpha(0f);
-                }
-            }
-        });
-
-        vp2Poster.setPageTransformer(compositePageTransformer);
     }
     // end poster
 

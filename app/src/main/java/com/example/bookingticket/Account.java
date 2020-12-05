@@ -1,5 +1,6 @@
 package com.example.bookingticket;
 
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -98,3 +99,15 @@ public class Account implements Parcelable {
         dest.writeString(avatar);
     }
 }
+=======
+import android.widget.TextView;
+
+public class Account {
+
+}
+/*
+code login http://h0akd.blogspot.com/2012/04/huong-dan-lam-form-ang-nhap-voi-web.html
+code upload images http://www.codeplayon.com/2018/11/android-image-upload-to-server-from-camera-and-gallery/
+retrofit upload images https://stackoverflow.com/questions/62983294/upload-image-in-android-studio
+*/
+>>>>>>> bc6a317af94edd6cfe5fbef3dad8ba7a8c849e9d

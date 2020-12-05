@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/actRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    tools:context=".RegisterActivity"
     android:background="#FF9800">
 
     <LinearLayout
@@ -19,9 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_marginTop="60dp"
-            android:layout_gravity="center_horizontal"
-            />
-
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:id="@+id/txtUsername"
@@ -46,6 +44,7 @@
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:textSize="25dp"
             />
 
@@ -70,8 +69,7 @@
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
             android:id="@+id/imgAva"
-            android:src="@drawable/logo"
-            android:background="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/logo" />
 
         <Button
             android:id="@+id/btnRegister"
@@ -80,9 +78,7 @@
             android:backgroundTint="#f2d0a8"
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
-            android:text="Sign up"
-            />
-        <
+            android:text="Sign up" />
 
     </LinearLayout>
 

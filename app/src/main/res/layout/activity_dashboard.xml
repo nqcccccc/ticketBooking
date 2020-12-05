@@ -39,11 +39,23 @@
                 android:orientation="vertical">
 
                 <!--Slides News-->
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/vpSlider"
+<!--                <androidx.viewpager.widget.ViewPager-->
+<!--                    android:id="@+id/vpSlider"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_weight="1"/>-->
+                <com.denzcoskun.imageslider.ImageSlider
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:id="@+id/imgSlider"
+                    app:delay="0"
+                    app:period="1000"
+                    app:corner_radius="5"
+                    app:auto_cycle="true"
+                    app:placeholder="@drawable/ic_launcher_background"
+                    app:error_image="@drawable/ic_launcher_background"/>
+
 
                 <!--Movie Select-->
                 <androidx.viewpager2.widget.ViewPager2

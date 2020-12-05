@@ -10,33 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
 public class SliderAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater inflater;
-    private Integer [] img = {R.drawable.slider1,R.drawable.slider2,R.drawable.slider3};
+    private String[] data;
 
-    public SliderAdapter(Context context) {
+    public SliderAdapter(Context context, String[] data) {
         this.context = context;
+        this.data = data;
     }
 
     @Override
     public int getCount() {
-        return img.length;
+        return data.length;
     }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
-    }
-
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+//        ItemSlider itemSlider = data.get(position);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slider_layout,null,false);
         ImageView imgSlider = view.findViewById(R.id.imgSlider);
-        imgSlider.setImageResource(img[position]);
+
+        Picasso.get().load(data[position]).into(imgSlider);
 
         ViewPager vp = (ViewPager) container;
         vp.addView(view,0);
@@ -49,5 +50,10 @@ public class SliderAdapter extends PagerAdapter {
         View view = (View) object;
         vp.removeView(view);
 
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view == object;
     }
 }

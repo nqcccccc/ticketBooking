@@ -12,17 +12,26 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.bookingticket.Retrofit2.APIUtils;
+import com.example.bookingticket.Retrofit2.DataClient;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,8 +41,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private ListView lvNavigation,lvNews;
     private ImageButton btnMenu;
     private MenuAdapter menuAdapter;
-    private ViewPager vpSlider;
+    //private ViewPager vpSlider;
     private ViewPager2 vp2Poster;
+    private ImageSlider imgSlider;
 
     private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.5f;
@@ -64,7 +74,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         btnMenu = findViewById(R.id.btnMenu);
 
-        vpSlider = findViewById(R.id.vpSlider);
+       // vpSlider = findViewById(R.id.vpSlider);
+        imgSlider = findViewById(R.id.imgSlider);
         vp2Poster = findViewById(R.id.vp2Poster);
 
         btnMenu.setOnClickListener(this);
@@ -103,31 +114,55 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     //End menu
     // Start slider
     private void slider() {
-        SliderAdapter sliderAdapter = new SliderAdapter(this);
-        vpSlider.setAdapter(sliderAdapter);
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new SliderTimer(),2000,4000);
-    }
-
-    public class SliderTimer extends TimerTask{
-
-        @Override
-        public void run() {
-            DashboardActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (vpSlider.getCurrentItem() == 0){
-                        vpSlider.setCurrentItem(1);
-                    }else if (vpSlider.getCurrentItem() == 1){
-                        vpSlider.setCurrentItem(2);
-                    }else if(vpSlider.getCurrentItem() == 2){
-                        vpSlider.setCurrentItem(0);
+        DataClient dataClient = APIUtils.getData();
+        Call<List<Slider>> callback = dataClient.getSlider(1);
+        callback.enqueue(new Callback<List<Slider>>() {
+            @Override
+            public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
+                ArrayList<Slider> arraySlider = (ArrayList<Slider>) response.body();
+                List<SlideModel> data = new ArrayList<>();
+                if(arraySlider.size()>0){
+                    for(int i=0;i<arraySlider.size();i++){
+                        Log.d("TAG", arraySlider.get(i).getBanner());
+                        data.add(new SlideModel(arraySlider.get(i).getBanner(),""));
                     }
+                }else{
+                    Log.d("TAG", "Lỗi ");
                 }
-            });
-        }
+//                String[] simpleArray = new String[ data.size() ];;
+//                data.toArray( simpleArray );
+//                SliderAdapter sliderAdapter = new SliderAdapter(DashboardActivity.this,simpleArray);
+//                vpSlider.setAdapter(sliderAdapter);
+//                Timer timer = new Timer();
+//                timer.scheduleAtFixedRate(new SliderTimer(),2000,4000);
+                imgSlider.setImageList(data,true);
+            }
+
+            @Override
+            public void onFailure(Call<List<Slider>> call, Throwable t) {
+                Log.d("TAG", t.getMessage());
+            }
+        });
     }
+
+//    public class SliderTimer extends TimerTask{
+//
+//        @Override
+//        public void run() {
+//            DashboardActivity.this.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (vpSlider.getCurrentItem() == 0){
+//                        vpSlider.setCurrentItem(1);
+//                    }else if (vpSlider.getCurrentItem() == 1){
+//                        vpSlider.setCurrentItem(2);
+//                    }else if(vpSlider.getCurrentItem() == 2){
+//                        vpSlider.setCurrentItem(0);
+//                    }
+//                }
+//            });
+//        }
+//    }
     //End slider
 
     //Start poster

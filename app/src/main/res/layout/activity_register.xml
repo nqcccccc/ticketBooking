@@ -40,7 +40,7 @@
             android:id="@+id/txtEmail"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
             android:singleLine="true"
             android:background="@drawable/radius_shape"
@@ -55,33 +55,34 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
+            android:singleLine="true"
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
             android:inputType="textPassword"
             android:hint="Password"
             android:textSize="25dp"
             />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cbAgree"
-            android:text="I agree to the terms and conditions"
-            android:layout_margin="@android:dimen/app_icon_size"
+        <!--Avatar Picker-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="20dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:orientation="horizontal"
+            android:id="@+id/imgAva"
+            android:src="@drawable/logo"
+            android:background="@drawable/ic_launcher_foreground"/>
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="250dp"
             android:layout_height="35dp"
-            android:layout_marginTop="5dp"
             android:backgroundTint="#f2d0a8"
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
             android:text="Sign up"
             />
-
+        <
 
     </LinearLayout>
 

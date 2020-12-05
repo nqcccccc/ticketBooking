@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:id="@+id/toolBar"
-                android:background="#FF9800">
+                android:background="@color/orange">
                 <ImageButton
                     android:id="@+id/btnMenu"
                     android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <!--News-->
+                <!--Slides News-->
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vpSlider"
                     android:layout_width="match_parent"
@@ -54,6 +54,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingStart="80dp"
                     android:paddingEnd="80dp"/>
+                <!--News-->
                 <ListView
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -71,7 +72,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:orientation="vertical"
-            android:background="#ddd"
+            android:background="@color/light_orange"
             android:id="@+id/navigationView">
             <!--Header-->
             <LinearLayout
@@ -79,6 +80,7 @@
                 android:layout_height="500px"
                 android:background="#FF9800"
                 android:orientation="vertical">
+                <!--Avatar-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
@@ -87,7 +89,8 @@
                     app:civ_border_color="#FF000000"
                     android:layout_gravity="center"
                     android:layout_marginTop="25dp"
-                    android:src="@drawable/ic_launcher_background"/>
+                    android:src="@drawable/logo"/>
+                <!--Name-->
                 <TextView
                     android:id="@+id/tvCName"
                     android:layout_width="match_parent"

@@ -78,12 +78,7 @@
             android:backgroundTint="#f2d0a8"
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
-<<<<<<< HEAD
             android:text="Sign up" />
-=======
-            android:text="Sign up"
-            />
->>>>>>> bc6a317af94edd6cfe5fbef3dad8ba7a8c849e9d
 
     </LinearLayout>
 

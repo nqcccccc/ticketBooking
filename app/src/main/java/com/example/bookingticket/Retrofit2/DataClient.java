@@ -1,6 +1,7 @@
 package com.example.bookingticket.Retrofit2;
 
 import com.example.bookingticket.Account;
+import com.example.bookingticket.Poster;
 import com.example.bookingticket.Slider;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public interface DataClient {
     @FormUrlEncoded
     @POST("banner.php")
     Call<List<Slider>> getSlider(@Field("status") Integer status);
+
+    @FormUrlEncoded
+    @POST("poster.php")
+    Call<List<Poster>> getPoster(@Field("status") Integer status);
 
 }

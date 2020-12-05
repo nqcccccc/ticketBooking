@@ -2,17 +2,17 @@ package com.example.bookingticket;
 
 public class ItemPoster {
 
-    private int poster;
+    private String poster;
 
-    public ItemPoster(int poster) {
+    public ItemPoster(String poster) {
         this.poster = poster;
     }
 
-    public int getPoster() {
+    public String getPoster() {
         return poster;
     }
 
-    public void setPoster(int poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 }

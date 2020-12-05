@@ -123,56 +123,45 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 List<SlideModel> data = new ArrayList<>();
                 if(arraySlider.size()>0){
                     for(int i=0;i<arraySlider.size();i++){
-                        Log.d("TAG", arraySlider.get(i).getBanner());
-                        data.add(new SlideModel(arraySlider.get(i).getBanner(),""));
+                        data.add(new SlideModel(arraySlider.get(i).getBanner()));
                     }
                 }else{
-                    Log.d("TAG", "Lỗi ");
+                    Log.d("TAG", "Empty ");
                 }
-//                String[] simpleArray = new String[ data.size() ];;
-//                data.toArray( simpleArray );
-//                SliderAdapter sliderAdapter = new SliderAdapter(DashboardActivity.this,simpleArray);
-//                vpSlider.setAdapter(sliderAdapter);
-//                Timer timer = new Timer();
-//                timer.scheduleAtFixedRate(new SliderTimer(),2000,4000);
                 imgSlider.setImageList(data,true);
             }
-
             @Override
             public void onFailure(Call<List<Slider>> call, Throwable t) {
                 Log.d("TAG", t.getMessage());
             }
         });
     }
-
-//    public class SliderTimer extends TimerTask{
-//
-//        @Override
-//        public void run() {
-//            DashboardActivity.this.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (vpSlider.getCurrentItem() == 0){
-//                        vpSlider.setCurrentItem(1);
-//                    }else if (vpSlider.getCurrentItem() == 1){
-//                        vpSlider.setCurrentItem(2);
-//                    }else if(vpSlider.getCurrentItem() == 2){
-//                        vpSlider.setCurrentItem(0);
-//                    }
-//                }
-//            });
-//        }
-//    }
     //End slider
 
     //Start poster
     private void poster() {
-        List<ItemPoster> data = new ArrayList<>();
-        data.add(new ItemPoster(R.drawable.poster1));
-        data.add(new ItemPoster(R.drawable.poster2));
-        data.add(new ItemPoster(R.drawable.poster3));
+        DataClient dataClient = APIUtils.getData();
+        Call<List<Poster>> callback = dataClient.getPoster(1);
+        callback.enqueue(new Callback<List<Poster>>() {
+            @Override
+            public void onResponse(Call<List<Poster>> call, Response<List<Poster>> response) {
+                ArrayList<Poster> arrayPoster = (ArrayList<Poster>) response.body();
+                List<ItemPoster> data = new ArrayList<>();
+                if(arrayPoster.size()>0){
+                    for(int i=0;i<arrayPoster.size();i++){
+                        data.add(new ItemPoster(arrayPoster.get(i).getPoster()));
+                    }
+                    vp2Poster.setAdapter(new PosterAdapter(data,vp2Poster));
+                }else{
+                    Log.d("TAG", "Empty ");
+                }
+            }
 
-        vp2Poster.setAdapter(new PosterAdapter(data,vp2Poster));
+            @Override
+            public void onFailure(Call<List<Poster>> call, Throwable t) {
+
+            }
+        });
 
         vp2Poster.setClipToPadding(false);
         vp2Poster.setClipChildren(false);
@@ -189,7 +178,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                 if (position < -1) {
                     view.setAlpha(0f);
-
                 } else if (position <= 1) {
                     float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
                     float vertMargin = pageHeight * (1 - scaleFactor) / 2;
@@ -199,12 +187,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         view.setTranslationX(-horzMargin + vertMargin / 2);
                     }
-
                     view.setScaleX(scaleFactor);
                     view.setScaleY(scaleFactor);
-
                     view.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-
                 } else {
                     view.setAlpha(0f);
                 }

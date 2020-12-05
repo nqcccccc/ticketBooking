@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
         }
 
         void setPoster(ItemPoster itemPoster) {
-            rimgPoster.setImageResource(itemPoster.getPoster());
+            Picasso.get().load(itemPoster.getPoster()).into(rimgPoster);
         }
     }
 }

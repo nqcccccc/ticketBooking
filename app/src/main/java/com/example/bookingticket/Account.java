@@ -3,7 +3,7 @@ package com.example.bookingticket;
 import android.widget.TextView;
 
 public class Account {
-    private TextView
+
 }
 /*
 code login http://h0akd.blogspot.com/2012/04/huong-dan-lam-form-ang-nhap-voi-web.html

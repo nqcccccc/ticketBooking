@@ -57,7 +57,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_dashboard);
 
         init();
-        initData();
+        //initData();
         actionToolbar();
         initMenuData();
         slider();

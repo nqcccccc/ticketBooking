@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:context=".MovieActivity"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -10,10 +13,18 @@
         android:orientation="vertical">
 
         <!--Trailer-->
-        <VideoView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_margin="10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/vvFram"
+            android:layout_height="200dp">
+            <VideoView
+                android:id="@+id/vvTrailer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                />
+        </RelativeLayout>
+
 
         <!--Movie Detail-->
         <LinearLayout
@@ -23,6 +34,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/radius_border">
             <TextView
+                android:id="@+id/tvMName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -30,6 +42,7 @@
                 android:text="Movie Name"
                 android:textSize="15dp"/><!-- Thể loại -->
             <TextView
+                android:id="@+id/tvMGenre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -37,6 +50,7 @@
                 android:text="Genre"
                 android:textSize="15dp"/>
             <TextView
+                android:id="@+id/tvMlength"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -44,6 +58,7 @@
                 android:text="Running time"
                 android:textSize="15dp"/>
             <TextView
+                android:id="@+id/tvMDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -51,6 +66,7 @@
                 android:text="Release date"
                 android:textSize="15dp"/>
             <TextView
+                android:id="@+id/tvMLang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -58,6 +74,7 @@
                 android:text="Language"
                 android:textSize="15dp"/>
             <TextView
+                android:id="@+id/tvMDes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -66,6 +83,7 @@
                 android:text="Description"
                 android:textSize="15dp"/>
             <Button
+                android:id="@+id/btnMBook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Booking"

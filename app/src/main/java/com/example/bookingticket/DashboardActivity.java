@@ -126,8 +126,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         lvNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (arrayList.get(0) ){
+                if (arrayList.get(i).getItemName().equals("History") ){
                     Intent intent = new Intent(DashboardActivity.this,History.class);
+                    startActivity(intent);
+                }else if (arrayList.get(i).getItemName().equals("Logout") ){
+                    Intent intent = new Intent(DashboardActivity.this,History.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(DashboardActivity.this,AppInfo.class);
                     startActivity(intent);
                 }
             }

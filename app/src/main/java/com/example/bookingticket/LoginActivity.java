@@ -6,6 +6,7 @@ import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookingticket.Retrofit2.APIUtils;
 import com.example.bookingticket.Retrofit2.DataClient;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText txtUsername,txtPassword;
     private Button btnLogin, btnRegister;
-
     private String pass,user;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,14 +56,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnRegister:
                 register();
                 break;
+            case R.id.tvForgot:
+                forgot();
+                break;
         }
     }
-
+    // Register
     private void register() {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(intent);
     }
 
+    // Forgot
+    private void forgot() {
+        Intent intent = new Intent(LoginActivity.this,ForgotActivity.class);
+        startActivity(intent);
+    }
+
+    // Login
     private void login() {
         user = txtUsername.getText().toString();
         pass = txtPassword.getText().toString();

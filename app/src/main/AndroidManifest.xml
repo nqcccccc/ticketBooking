@@ -18,16 +18,35 @@
         <activity android:name=".PickTimeActivity">
 
         </activity>
+        <!-- Done -->
         <activity android:name=".LoginActivity">
+
+        </activity>
+        <!-- Done -->
+        <activity android:name=".RegisterActivity">
+
+        </activity>
+        <!-- Done -->
+        <activity android:name=".DashboardActivity">
+
+        </activity>
+        <activity android:name=".MovieActivity">
+
+        </activity>
+        <activity android:name=".ForgotActivity">
+
+        </activity>
+        <activity android:name=".HistoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".DashboardActivity"></activity>
-        <activity android:name=".MovieActivity"></activity>
+        <!-- Done -->
+        <activity android:name=".AppInfoActivity">
+
+        </activity>
     </application>
 
 </manifest>

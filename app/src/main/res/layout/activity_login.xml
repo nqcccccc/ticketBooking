@@ -12,16 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:gravity="center_horizontal">
 
         <ImageView
             android:src="@drawable/logo"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_margin="60dp"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="20dp"/>
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie Ticket Booking"
+            android:textSize="30dp"
+            android:layout_marginBottom="20dp"
+            />
 
         <EditText
             android:id="@+id/txtUsername"
@@ -52,7 +60,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="250dp"
             android:layout_height="35dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/radius_shape"
             android:layout_gravity="center_horizontal"
             android:text="Log in"
@@ -76,6 +84,7 @@
             android:layout_margin="5dp"
             android:textAlignment="center"
             android:clickable="true"
+            android:onClick="onClick"
             android:text="Forgot Password"/>
 
         <ProgressBar

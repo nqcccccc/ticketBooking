@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.LogManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,13 +132,13 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (arrayList.get(i).getItemName().equals("History") ){
-                    Intent intent = new Intent(DashboardActivity.this,History.class);
+                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
                     startActivity(intent);
                 }else if (arrayList.get(i).getItemName().equals("Logout") ){
-                    Intent intent = new Intent(DashboardActivity.this,History.class);
+                    Intent intent = new Intent(DashboardActivity.this,LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(DashboardActivity.this,AppInfo.class);
+                    Intent intent = new Intent(DashboardActivity.this,AppInfoActivity.class);
                     startActivity(intent);
                 }
             }

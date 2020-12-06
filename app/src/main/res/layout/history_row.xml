@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <!-- Row design for booking_history.xml -->
     <TextView
+        android:id="@+id/tvMName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -13,24 +14,28 @@
         android:textSize="20dp"
         android:textStyle="bold"/>
     <TextView
+        android:id="@+id/tvCinema"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Cinema"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/tvTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Time"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/tvSeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Seat(s)"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/tvTicketID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"

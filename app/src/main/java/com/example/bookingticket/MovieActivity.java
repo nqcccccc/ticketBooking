@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -31,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements View.OnClickListener {
     private VideoView vvTrailer;
     private TextView tvMName,tvMGenre,tvMlength,tvMDate,tvMLang,tvMDes;
     private Button btnMBook;
@@ -87,7 +88,7 @@ public class MovieActivity extends AppCompatActivity {
     private void setData() {
         Uri uri = Uri.parse(arrayMovie.get(0).getTrailer());
         ProgressDialog progressDialog = new ProgressDialog(MovieActivity.this);
-        progressDialog.show();
+        //progressDialog.show();
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(vvTrailer);
         vvTrailer.setVideoURI(uri);
@@ -96,7 +97,7 @@ public class MovieActivity extends AppCompatActivity {
         vvTrailer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
         });
 
@@ -119,11 +120,22 @@ public class MovieActivity extends AppCompatActivity {
         tvMDes = findViewById(R.id.tvMDes);
         imgAva = findViewById(R.id.imgAva);
         btnMBook = findViewById(R.id.btnMBook);
+
+        btnMBook.setOnClickListener(this);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(MovieActivity.this,PickTimeActivity.class);
+        intent.putExtra("arrayUser",arrayUser);
+        intent.putExtra("id_movie",arrayMovie.get(0).getIdMovie());
+
+        startActivity(intent);
     }
 }

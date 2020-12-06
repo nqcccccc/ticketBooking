@@ -2,12 +2,18 @@ package com.example.bookingticket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookingticket.Retrofit2.APIUtils;
@@ -15,6 +21,7 @@ import com.example.bookingticket.Retrofit2.DataClient;
 import com.github.badoualy.datepicker.DatePickerTimeline;
 import com.github.badoualy.datepicker.MonthView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -23,21 +30,43 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PickTimeActivity extends AppCompatActivity {
+public class PickTimeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatePickerTimeline dptDate;
     private ListView lvTime;
     private int id_movies = 1;
-//    private List<String> time;
+    private GridLayout gridLayout;
+    private Button btnSA1,btnSA2,btnSA3,btnSB1,btnSB2,btnSB3,btnSC1,btnSC2,btnSC3,btnBookNow;
+    private int A1=0,A2=0,A3=0,B1=0,B2=0,B3=0,C1=0,C2=0,C3 = 0;
+    private List<String> selected = new ArrayList<>();
+    private LinearLayout linearLayout;
+    private TextView tvQuantity,tvSeat,tvTotal;
+    private String finalDate,finalTime;
+    private ArrayList<Account> arrayUser = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_time);
 
+        Intent intent = getIntent();
+
+        id_movies = Integer.parseInt(intent.getStringExtra("id_movie"));
+        arrayUser = intent.getParcelableArrayListExtra("arrayUser");
+
         init();
         getDate();
 
+    }
 
+    private void setData() {
+        String seat = String.valueOf(selected);
+        String seatnew = seat.substring(1, seat.length()-1);
+        int total = (selected.size()) * 50000;
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        tvQuantity.setText("Quantity: "+selected.size());
+        tvSeat.setText("Seat : "+seatnew);
+        tvTotal.setText("Quantity: "+formatter.format(total)+"VNĐ");
     }
 
     private void getDate() {
@@ -70,12 +99,22 @@ public class PickTimeActivity extends AppCompatActivity {
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(PickTimeActivity.this,android.R.layout.simple_list_item_1, time);
                             lvTime.setAdapter(adapter);
+                            gridLayout.setVisibility(View.INVISIBLE);
+                            linearLayout.setVisibility(View.INVISIBLE);
+                            btnBookNow.setVisibility(View.INVISIBLE);
+
                         }
 
                         lvTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 String id_show = arrayShow.get(position).getId();
+
+                                A1=0;A2=0;A3=0;B1=0;B2=0;B3=0;C1=0;C2=0;C3 = 0;
+
+                                gridLayout.setVisibility(View.VISIBLE);
+                                selected.clear();
+                                checkSeat();
                             }
                         });
                     }
@@ -86,6 +125,7 @@ public class PickTimeActivity extends AppCompatActivity {
                         List<String> time = new ArrayList<String>();
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(PickTimeActivity.this,android.R.layout.simple_list_item_1, time);
                         lvTime.setAdapter(adapter);
+                        gridLayout.setVisibility(View.INVISIBLE);
                         Toast.makeText(PickTimeActivity.this,"Please pick another day !",Toast.LENGTH_LONG).show();
                     }
                 });
@@ -96,6 +136,227 @@ public class PickTimeActivity extends AppCompatActivity {
     private void init() {
         dptDate = findViewById(R.id.dptDate);
         lvTime = findViewById(R.id.lvTime);
+        gridLayout = findViewById(R.id.gridLayout);
+
+        btnSA1 = findViewById(R.id.btnSA1);
+        btnSA2 = findViewById(R.id.btnSA2);
+        btnSA3 = findViewById(R.id.btnSA3);
+        btnSB1 = findViewById(R.id.btnSB1);
+        btnSB2 = findViewById(R.id.btnSB2);
+        btnSB3 = findViewById(R.id.btnSB3);
+        btnSC1 = findViewById(R.id.btnSC1);
+        btnSC2 = findViewById(R.id.btnSC2);
+        btnSC3 = findViewById(R.id.btnSC3);
+
+        linearLayout = findViewById(R.id.linearLayout);
+        tvQuantity = findViewById(R.id.tvQuantity);
+        tvSeat = findViewById(R.id.tvSeat);
+        tvTotal = findViewById(R.id.tvTotal);
+
+        btnBookNow = findViewById(R.id.btnBookNow);
+
+        checkSeat();
+
+        gridLayout.setVisibility(View.INVISIBLE);
+        btnSA1.setOnClickListener(this);
+        btnSA2.setOnClickListener(this);
+        btnSA3.setOnClickListener(this);
+        btnSB1.setOnClickListener(this);
+        btnSB2.setOnClickListener(this);
+        btnSB3.setOnClickListener(this);
+        btnSC1.setOnClickListener(this);
+        btnSC2.setOnClickListener(this);
+        btnSC3.setOnClickListener(this);
+
+        linearLayout.setVisibility(View.INVISIBLE);
+        btnBookNow.setVisibility(View.INVISIBLE);
+
+
     }
 
+    private void checkSeat() {
+        if (A1 == 1){
+            btnSA1.setEnabled(false);
+            btnSA1.setBackgroundColor(Color.GRAY);
+        }else if (A1 == 0){
+            btnSA1.setEnabled(true);
+            btnSA1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (A2 == 1){
+            btnSA2.setEnabled(false);
+            btnSA2.setBackgroundColor(Color.GRAY);
+        }else if (A2 == 0){
+            btnSA2.setEnabled(true);
+            btnSA2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (A3 == 1){
+            btnSA3.setEnabled(false);
+            btnSA3.setBackgroundColor(Color.GRAY);
+        }else if (A3 == 0){
+            btnSA3.setEnabled(true);
+            btnSA3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (B1 == 1){
+            btnSB1.setEnabled(false);
+            btnSB1.setBackgroundColor(Color.GRAY);
+        }else if (B1 == 0){
+            btnSB1.setEnabled(true);
+            btnSB1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (B2 == 1){
+            btnSB2.setEnabled(false);
+            btnSB2.setBackgroundColor(Color.GRAY);
+        }else if (B2 == 0){
+            btnSB2.setEnabled(true);
+            btnSB2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (B3 == 1){
+            btnSB3.setEnabled(false);
+            btnSB3.setBackgroundColor(Color.GRAY);
+        }else if (B3 == 0){
+            btnSB3.setEnabled(true);
+            btnSB3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (C1 == 1){
+            btnSC1.setEnabled(false);
+            btnSC1.setBackgroundColor(Color.GRAY);
+        }else if (C1 == 0){
+            btnSC1.setEnabled(true);
+            btnSC1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (C2 == 1){
+            btnSC2.setEnabled(false);
+            btnSC2.setBackgroundColor(Color.GRAY);
+        }else if (C2 == 0){
+            btnSC2.setEnabled(true);
+            btnSC2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+
+        if (C3 == 1){
+            btnSC3.setEnabled(false);
+            btnSC3.setBackgroundColor(Color.GRAY);
+        }else if (C3 == 0){
+            btnSC3.setEnabled(true);
+            btnSC3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        linearLayout.setVisibility(View.VISIBLE);
+        btnBookNow.setVisibility(View.VISIBLE);
+
+        switch (v.getId()){
+            case R.id.btnSA1:
+                if(A1 == 0){
+                    A1 =2;
+                    btnSA1.setBackgroundColor(Color.RED);
+                    selected.add(btnSA1.getText().toString());
+                    Log.d("TAG", String.valueOf(selected));
+                }else{
+                    A1=0;
+                    btnSA1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                    selected.remove(btnSA1.getText().toString());
+                    Log.d("TAG", String.valueOf(selected));
+                }
+                break;
+            case R.id.btnSA2:
+                if(A2 == 0){
+                    A2 =2;
+                    selected.add(btnSA2.getText().toString());
+                    btnSA2.setBackgroundColor(Color.RED);
+                }else{
+                    A2=0;
+                    selected.remove(btnSA2.getText().toString());
+                    btnSA2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSA3:
+                if(A3 == 0){
+                    A3 =2;
+                    selected.add(btnSA3.getText().toString());
+                    btnSA3.setBackgroundColor(Color.RED);
+                }else{
+                    A3=0;
+                    selected.remove(btnSA3.getText().toString());
+                    btnSA3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSB1:
+                if(B1 == 0){
+                    B1 =2;
+                    selected.add(btnSB1.getText().toString());
+                    btnSB1.setBackgroundColor(Color.RED);
+                }else{
+                    B1=0;
+                    selected.remove(btnSB1.getText().toString());
+                    btnSB1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSB2:
+                if(B2 == 0){
+                    B2 =2;
+                    selected.add(btnSB2.getText().toString());
+                    btnSB2.setBackgroundColor(Color.RED);
+                }else{
+                    B2=0;
+                    selected.remove(btnSB2.getText().toString());
+                    btnSB2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSB3:
+                if(B3 == 0){
+                    B3 =2;
+                    selected.add(btnSB3.getText().toString());
+                    btnSB3.setBackgroundColor(Color.RED);
+                }else{
+                    B3=0;
+                    selected.remove(btnSB3.getText().toString());
+                    btnSB3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSC1:
+                if(C1 == 0){
+                    C1 =2;
+                    selected.add(btnSC1.getText().toString());
+                    btnSC1.setBackgroundColor(Color.RED);
+                }else{
+                    C1=0;
+                    selected.remove(btnSC1.getText().toString());
+                    btnSC1.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSC2:
+                if(C2 == 0){
+                    C2 =2;
+                    selected.add(btnSC2.getText().toString());
+                    btnSC2.setBackgroundColor(Color.RED);
+                }else{
+                    C2=0;
+                    selected.remove(btnSC2.getText().toString());
+                    btnSC2.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+            case R.id.btnSC3:
+                if(C3 == 0){
+                    C3 =2;
+                    selected.add(btnSC3.getText().toString());
+                    btnSC3.setBackgroundColor(Color.RED);
+                }else{
+                    C3=0;
+                    selected.remove(btnSC3.getText().toString());
+                    btnSC3.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                }
+                break;
+
+        }
+        setData();
+    }
 }

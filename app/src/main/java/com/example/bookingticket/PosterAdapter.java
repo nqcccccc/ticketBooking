@@ -75,10 +75,13 @@ public class PosterAdapter extends PagerAdapter{
             public void onClick(View v) {
                 DataClient dataClient = APIUtils.getData();
                 Call<List<MoiveInfo>> callback = dataClient.getMoive(data.get(position).getId());
+                Log.d("TAG1", "onResponse: "+data.get(position).getId());
+
                 callback.enqueue(new Callback<List<MoiveInfo>>() {
                     @Override
                     public void onResponse(Call<List<MoiveInfo>> call, Response<List<MoiveInfo>> response) {
                         ArrayList<MoiveInfo> arrayMovie = (ArrayList<MoiveInfo>) response.body();
+                        Log.d("TAG2", "onResponse: "+arrayMovie.get(0).getName());
 
                         Intent intent = new Intent(context,MovieActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

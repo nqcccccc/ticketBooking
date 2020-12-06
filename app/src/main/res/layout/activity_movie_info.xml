@@ -40,7 +40,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:text="Movie Name"
-                android:textSize="15dp"/><!-- Thể loại -->
+                android:textSize="15dp"/>
+            <!-- Thể loại -->
             <TextView
                 android:id="@+id/tvMGenre"
                 android:layout_width="wrap_content"
@@ -126,8 +127,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/radius_border"
                     android:text="Add Comment"
-                    android:textColor="@android:color/darker_gray"
-                    android:textAlignment="viewStart"/>
+                    android:textColor="@android:color/darker_gray"/>
             </LinearLayout>
 
         </LinearLayout>

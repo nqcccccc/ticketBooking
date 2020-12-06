@@ -29,11 +29,13 @@ public class PosterAdapter extends PagerAdapter{
 
     private List<ItemPoster> data;
     private Context context;
+    private int user;
     LayoutInflater layoutInflater;
 
-    public PosterAdapter(List<ItemPoster> data, Context context) {
+    public PosterAdapter(List<ItemPoster> data,int user, Context context) {
         this.data = data;
         this.context = context;
+        this.user = user;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -71,7 +73,6 @@ public class PosterAdapter extends PagerAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Poster id:"+data.get(position).getId().toString(),Toast.LENGTH_LONG).show();
                 DataClient dataClient = APIUtils.getData();
                 Call<List<MoiveInfo>> callback = dataClient.getMoive(data.get(position).getId());
                 callback.enqueue(new Callback<List<MoiveInfo>>() {
@@ -82,6 +83,7 @@ public class PosterAdapter extends PagerAdapter{
                         Intent intent = new Intent(context,MovieActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("arrayMovie",arrayMovie);
+                        intent.putExtra("user",user);
                         context.startActivity(intent);
                     }
 

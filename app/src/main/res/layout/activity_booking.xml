@@ -17,12 +17,13 @@
             android:id="@+id/selectCinema" />
 
         <!--Time Select-->
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectTime"/>
 
         <!--Seat Select-->
+        <GridView
+            android:id="@+id/selectTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="350dp"

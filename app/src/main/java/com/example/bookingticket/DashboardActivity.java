@@ -50,6 +50,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private ImageView imgAva;
     private TextView tvCName;
     private HorizontalInfiniteCycleViewPager vp2Poster;
+    private ArrayList<Account> arrayUser = null;
+    private int user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_dashboard);
 
         init();
-        //initData();
+        initData();
         actionToolbar();
         initMenuData();
         slider();
@@ -91,7 +93,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     //Get Intent data
     private void initData() {
         Intent intent = getIntent();
-        ArrayList<Account> arrayUser = intent.getParcelableArrayListExtra("arrayUser");
+        arrayUser = intent.getParcelableArrayListExtra("arrayUser");
+
+        user = Integer.parseInt(arrayUser.get(0).getId());
 
         tvCName.setText(arrayUser.get(0).getUser());
         Picasso.get().load(arrayUser.get(0).getAvatar()).into(imgAva);
@@ -168,7 +172,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 }else{
                     Log.d("TAG","Empty ");
                 }
-                PosterAdapter adapter = new PosterAdapter(data,getBaseContext());
+                PosterAdapter adapter = new PosterAdapter(data,user,getBaseContext());
                 vp2Poster.setAdapter(adapter);
                 vp2Poster.notifyDataSetChanged();
             }

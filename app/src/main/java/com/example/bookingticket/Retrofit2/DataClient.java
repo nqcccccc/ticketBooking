@@ -3,6 +3,7 @@ package com.example.bookingticket.Retrofit2;
 import com.example.bookingticket.Account;
 import com.example.bookingticket.MoiveInfo;
 import com.example.bookingticket.Poster;
+import com.example.bookingticket.Show;
 import com.example.bookingticket.Slider;
 
 import java.util.List;
@@ -44,4 +45,13 @@ public interface DataClient {
     @FormUrlEncoded
     @POST("movie.php")
     Call<List<MoiveInfo>> getMoive(@Field("id") Integer id);
+
+    @FormUrlEncoded
+    @POST("userinfo.php")
+    Call<List<Account>> getUser(@Field("id") Integer id);
+
+    @FormUrlEncoded
+    @POST("show.php")
+    Call<List<Show>> getShow(@Field("date") String date,
+                             @Field("id_movie") Integer id_movie);
 }

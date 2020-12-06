@@ -11,15 +11,18 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -123,6 +126,22 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         menuAdapter = new MenuAdapter(this,R.layout.item_row,arrayList);
         lvNavigation.setAdapter(menuAdapter);
+
+        lvNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (arrayList.get(i).getItemName().equals("History") ){
+                    Intent intent = new Intent(DashboardActivity.this,History.class);
+                    startActivity(intent);
+                }else if (arrayList.get(i).getItemName().equals("Logout") ){
+                    Intent intent = new Intent(DashboardActivity.this,History.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(DashboardActivity.this,AppInfo.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void actionToolbar() {

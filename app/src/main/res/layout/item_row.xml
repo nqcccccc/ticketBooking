@@ -7,6 +7,8 @@
     android:padding="8dp"
     android:orientation="horizontal">
 
+    <!-- for right side menu-->
+
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"

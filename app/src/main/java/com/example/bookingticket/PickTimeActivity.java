@@ -24,6 +24,7 @@ import com.github.badoualy.datepicker.MonthView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,14 +35,14 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
 
     private DatePickerTimeline dptDate;
     private ListView lvTime;
-    private int id_movies = 1;
+    private int id_movies,id_show;
     private GridLayout gridLayout;
     private Button btnSA1,btnSA2,btnSA3,btnSB1,btnSB2,btnSB3,btnSC1,btnSC2,btnSC3,btnBookNow;
     private int A1=0,A2=0,A3=0,B1=0,B2=0,B3=0,C1=0,C2=0,C3 = 0;
     private List<String> selected = new ArrayList<>();
     private LinearLayout linearLayout;
     private TextView tvQuantity,tvSeat,tvTotal;
-    private String finalDate,finalTime;
+    private String date,finalTime;
     private ArrayList<Account> arrayUser = null;
 
     @Override
@@ -60,6 +61,7 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setData() {
+        Collections.sort(selected);
         String seat = String.valueOf(selected);
         String seatnew = seat.substring(1, seat.length()-1);
         int total = (selected.size()) * 50000;
@@ -84,7 +86,7 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onDateSelected(int year, int month, int day, int index) {
                 int m = month+1;
-                String date = day+"/"+m+"/"+year;
+                date = day+"/"+m+"/"+year;
 
                 DataClient dataClient = APIUtils.getData();
                 Call<List<Show>> callback = dataClient.getShow(date,id_movies);
@@ -104,17 +106,86 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
                             btnBookNow.setVisibility(View.INVISIBLE);
 
                         }
-
+                        // set db for seat
                         lvTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String id_show = arrayShow.get(position).getId();
+                                id_show = Integer.parseInt(arrayShow.get(position).getId());
+                                A1=0;A2=0;A3=0;B1=0;B2=0;B3=0;C1=0;C2=0;C3=0;
+                                Log.d("TAG", "onItemClick: "+id_show);
+                                //Query !!!!
+                                DataClient dataClient1 = APIUtils.getData();
+                                Call<List<BookInfo>> callback = dataClient.getBookInfo(id_show);
+                                callback.enqueue(new Callback<List<BookInfo>>() {
+                                    @Override
+                                    public void onResponse(Call<List<BookInfo>> call, Response<List<BookInfo>> response) {
+                                        ArrayList<BookInfo> bookInfoArrayList = (ArrayList<BookInfo>) response.body();
 
-                                A1=0;A2=0;A3=0;B1=0;B2=0;B3=0;C1=0;C2=0;C3 = 0;
+                                        if (bookInfoArrayList.size()>0){
+                                            List<String> list = new ArrayList<>();
+                                            for (int i = 0 ; i<bookInfoArrayList.size();i++){
+                                                String tempSeat = bookInfoArrayList.get(i).getSeat();
+                                                //tempSeat.replace(" ","");
+                                                String[] bookedSeat = tempSeat.split(",", 0);
+                                                for(String s: bookedSeat) {
+                                                    list.add(s);
+                                                }
+                                                for (int z = 0 ; z < list.size();z++){
+                                                    Log.d("TAG", list.get(z));
+                                                    if(list.get(z).trim().equals("A1")) {
+                                                        A1 = 1;
+                                                        Log.d("TAG", "A1: "+A1);
+                                                    }
+                                                    else if(list.get(z).trim().equals("A2")) {
+                                                        A2 = 1;
+                                                        Log.d("TAG", "A2: "+A2);
+                                                    }
+                                                    else if(list.get(z).trim().equals("A3")) {
+                                                        A3 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("B1")) {
+                                                        B1 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("B2")) {
+                                                        B2 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("B3")) {
+                                                        B3 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("C1")) {
+                                                        C1 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("C2")) {
+                                                        C2 = 1;
+                                                    }
+                                                    else if(list.get(z).trim().equals("C3")) {
+                                                        C3 = 1;
+                                                    }
+                                                }
+                                            }
+                                            Log.d("TAG", "onResponse: Success");
+                                            gridLayout.setVisibility(View.VISIBLE);
+                                            linearLayout.setVisibility(View.INVISIBLE);
+                                            btnBookNow.setVisibility(View.INVISIBLE);
+                                            selected.clear();
+                                            checkSeat();
+                                        }
+                                    }
 
-                                gridLayout.setVisibility(View.VISIBLE);
-                                selected.clear();
-                                checkSeat();
+                                    @Override
+                                    public void onFailure(Call<List<BookInfo>> call, Throwable t) {
+                                        Log.d("TAG", "onResponse: Fail Failure");
+                                        A1=0;A2=0;A3=0;B1=0;B2=0;B3=0;C1=0;C2=0;C3=0;
+                                        gridLayout.setVisibility(View.VISIBLE);
+                                        linearLayout.setVisibility(View.INVISIBLE);
+                                        btnBookNow.setVisibility(View.INVISIBLE);
+                                        selected.clear();
+                                        checkSeat();
+                                    }
+                                });
+
+
+
                             }
                         });
                     }
@@ -154,6 +225,7 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
         tvTotal = findViewById(R.id.tvTotal);
 
         btnBookNow = findViewById(R.id.btnBookNow);
+        btnBookNow.setOnClickListener(this);
 
         checkSeat();
 
@@ -354,6 +426,11 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
                     selected.remove(btnSC3.getText().toString());
                     btnSC3.setBackgroundColor(getResources().getColor(R.color.light_orange));
                 }
+                break;
+            case R.id.btnBookNow:
+                int id_user = Integer.parseInt(arrayUser.get(0).getId());
+                Log.d("TAG", "onClick book: "+selected);
+                // có user id , id_show chờ làm file up load !!!
                 break;
 
         }

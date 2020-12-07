@@ -1,6 +1,7 @@
 package com.example.bookingticket.Retrofit2;
 
 import com.example.bookingticket.Account;
+import com.example.bookingticket.BookInfo;
 import com.example.bookingticket.MoiveInfo;
 import com.example.bookingticket.Poster;
 import com.example.bookingticket.Show;
@@ -54,4 +55,8 @@ public interface DataClient {
     @POST("show.php")
     Call<List<Show>> getShow(@Field("date") String date,
                              @Field("id_movie") Integer id_movie);
+
+    @FormUrlEncoded
+    @POST("bookcheck.php")
+    Call<List<BookInfo>> getBookInfo(@Field("id_show") Integer id_show);
 }

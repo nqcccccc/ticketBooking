@@ -22,12 +22,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         lvHistory = findViewById(R.id.lvHistory);
 
-        List<ItemHistory> arrayHistory = new ArrayList<>();
-
-        arrayHistory.add(new ItemHistory("IT", "DDC", "10:30","G12, G13", "wfhsdofu14"));
-
-        HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this, R.layout.history_row, arrayHistory);
-        lvHistory.setAdapter(historyAdapter);
 
 
     }

@@ -35,14 +35,14 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
 
     private DatePickerTimeline dptDate;
     private ListView lvTime;
-    private int id_movies,id_show;
+    private int id_movies,id_show,qty;
     private GridLayout gridLayout;
     private Button btnSA1,btnSA2,btnSA3,btnSB1,btnSB2,btnSB3,btnSC1,btnSC2,btnSC3,btnBookNow;
     private int A1=0,A2=0,A3=0,B1=0,B2=0,B3=0,C1=0,C2=0,C3 = 0;
     private List<String> selected = new ArrayList<>();
     private LinearLayout linearLayout;
     private TextView tvQuantity,tvSeat,tvTotal;
-    private String date,finalTime;
+    private String date,movie_name,seatnew;
     private ArrayList<Account> arrayUser = null;
 
     @Override
@@ -54,6 +54,7 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
 
         id_movies = Integer.parseInt(intent.getStringExtra("id_movie"));
         arrayUser = intent.getParcelableArrayListExtra("arrayUser");
+        movie_name = intent.getStringExtra("movie_name");
 
         init();
         getDate();
@@ -63,8 +64,9 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
     private void setData() {
         Collections.sort(selected);
         String seat = String.valueOf(selected);
-        String seatnew = seat.substring(1, seat.length()-1);
+        seatnew = seat.substring(1, seat.length()-1);
         int total = (selected.size()) * 50000;
+        qty = selected.size();
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         tvQuantity.setText("Quantity: "+selected.size());
         tvSeat.setText("Seat : "+seatnew);
@@ -429,8 +431,30 @@ public class PickTimeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnBookNow:
                 int id_user = Integer.parseInt(arrayUser.get(0).getId());
-                Log.d("TAG", "onClick book: "+selected);
+                Log.d("TAG", "onClick book: "+selected+","+id_user+","+id_show+","+movie_name);
                 // có user id , id_show chờ làm file up load !!!
+
+                DataClient dataClient = APIUtils.getData();
+                Call<String> callback = dataClient.setBooking(id_show,movie_name,id_user,seatnew,date,qty);
+                callback.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        String result = response.body();
+                        Log.d("TAG", "onResponse: "+result);
+                        if(result.equals("Success")){
+                            Toast.makeText(PickTimeActivity.this,"Your booking is success !",Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        if (result.equals("Fail")){
+                            Toast.makeText(PickTimeActivity.this,"Please try again !",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("TAG", "onResponse: "+t.getMessage());
+                    }
+                });
                 break;
 
         }

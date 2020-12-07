@@ -132,8 +132,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (arrayList.get(i).getItemName().equals("History") ){
-                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
+//                    startActivity(intent);
                 }else if (arrayList.get(i).getItemName().equals("Logout") ){
                     Intent intent = new Intent(DashboardActivity.this,LoginActivity.class);
                     startActivity(intent);

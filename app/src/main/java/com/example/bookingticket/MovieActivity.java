@@ -135,7 +135,9 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(MovieActivity.this,PickTimeActivity.class);
         intent.putExtra("arrayUser",arrayUser);
         intent.putExtra("id_movie",arrayMovie.get(0).getIdMovie());
+        intent.putExtra("movie_name",arrayMovie.get(0).getName());
 
         startActivity(intent);
+        finish();
     }
 }

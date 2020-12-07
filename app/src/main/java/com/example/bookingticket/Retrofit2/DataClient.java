@@ -59,4 +59,13 @@ public interface DataClient {
     @FormUrlEncoded
     @POST("bookcheck.php")
     Call<List<BookInfo>> getBookInfo(@Field("id_show") Integer id_show);
+
+    @FormUrlEncoded
+    @POST("booking.php")
+    Call<String> setBooking(@Field("id_show") Integer id_show,
+                                  @Field("movie_name") String movie_name,
+                                  @Field("user_id") Integer user_id,
+                                  @Field("seat") String seat,
+                                  @Field("date") String date,
+                                  @Field("qty") Integer qty);
 }

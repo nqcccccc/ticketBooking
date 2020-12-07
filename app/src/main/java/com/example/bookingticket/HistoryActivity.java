@@ -13,16 +13,21 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
+    private ListView lvHistory;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        lvHistory = findViewById(R.id.lvHistory);
+
         List<ItemHistory> arrayHistory = new ArrayList<>();
 
-        HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this, R.layout.history_row, arrayHistory);
-
         arrayHistory.add(new ItemHistory("IT", "DDC", "10:30","G12, G13", "wfhsdofu14"));
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this, R.layout.history_row, arrayHistory);
+        lvHistory.setAdapter(historyAdapter);
 
 
     }

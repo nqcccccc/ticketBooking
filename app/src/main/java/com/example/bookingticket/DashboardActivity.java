@@ -56,6 +56,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private HorizontalInfiniteCycleViewPager vp2Poster;
     private ArrayList<Account> arrayUser = null;
     private int user;
+    private ArrayList<Poster> arrayPoster = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,11 +133,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (arrayList.get(i).getItemName().equals("History") ){
-//                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
+                    intent.putExtra("arrayPoster",arrayPoster);
+                    intent.putExtra("user",user);
+                    startActivity(intent);
                 }else if (arrayList.get(i).getItemName().equals("Logout") ){
                     Intent intent = new Intent(DashboardActivity.this,LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(DashboardActivity.this,AppInfoActivity.class);
                     startActivity(intent);
@@ -183,7 +187,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         callback.enqueue(new Callback<List<Poster>>() {
             @Override
             public void onResponse(Call<List<Poster>> call, Response<List<Poster>> response) {
-                ArrayList<Poster> arrayPoster = (ArrayList<Poster>) response.body();
+                arrayPoster = (ArrayList<Poster>) response.body();
                 List<ItemPoster> data = new ArrayList<>();
                 if(arrayPoster.size()>0){
                     for(int i=0;i<arrayPoster.size();i++){

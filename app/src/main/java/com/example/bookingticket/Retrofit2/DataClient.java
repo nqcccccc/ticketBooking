@@ -68,4 +68,13 @@ public interface DataClient {
                                   @Field("seat") String seat,
                                   @Field("date") String date,
                                   @Field("qty") Integer qty);
+
+    @FormUrlEncoded
+    @POST("bookcheckid.php")
+    Call<List<BookInfo>> getBookID(@Field("user_id") Integer user_id);
+
+    @FormUrlEncoded
+    @POST("history.php")
+    Call<List<Poster>> getHistoryPoster(@Field("name") String name);
+
 }

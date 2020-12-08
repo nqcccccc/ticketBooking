@@ -212,30 +212,39 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     //Start news
     private void news() {
-        List<ItemNews> data = new ArrayList<>();
-        data.add(new ItemNews("History",R.drawable.ic_baseline_history_24));
-        data.add(new ItemNews("Logout",R.drawable.ic_round_reply_24));
-        data.add(new ItemNews("App Info",R.drawable.ic_baseline_info_24));
-        data.add(new ItemNews("App Info",R.drawable.ic_baseline_info_24));
-        data.add(new ItemNews("App Info",R.drawable.ic_baseline_info_24));
-        data.add(new ItemNews("App Info",R.drawable.ic_baseline_info_24));
-
-        NewsAdapter newsAdapter = new NewsAdapter(this,R.layout.news_row,data);
-        lvNews.setAdapter(newsAdapter);
-
-        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        DataClient dataClient = APIUtils.getData();
+        Call<List<News>> call = dataClient.getNews(1);
+        call.enqueue(new Callback<List<News>>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (data.get(i).getTittle().equals("History") ){
-//                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
-//                    startActivity(intent);
-                }else if (data.get(i).getTittle().equals("Logout") ) {
-                    finish();
-                    Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                    startActivity(intent);
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                ArrayList<News> arrayList = (ArrayList<News>) response.body();
+                List<ItemNews> data = new ArrayList<>();
+                if(arrayList.size()>0){
+                    for (int i = 0 ; i<arrayList.size();i++){
+                        data.add(new ItemNews(arrayList.get(i).getTittle(),arrayList.get(i).getImg()));
+                    }
                 }
+                NewsAdapter newsAdapter = new NewsAdapter(DashboardActivity.this,R.layout.news_row,data);
+                lvNews.setAdapter(newsAdapter);
+                lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent = new Intent(DashboardActivity.this,NewsActivity.class);
+                        intent.putExtra("arrayList",arrayList);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable t) {
+
             }
         });
+
+
+
+
 
     }
     //End news

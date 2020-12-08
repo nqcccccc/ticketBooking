@@ -35,8 +35,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         init();
-        btnRegister.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
 
     }
 
@@ -45,31 +43,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtPassword = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnLogin:
-                login();
-                break;
-            case R.id.btnRegister:
-                register();
-                break;
-            case R.id.tvForgot:
-                forgot();
-                break;
-        }
-    }
     // Register
     private void register() {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-        startActivity(intent);
-    }
-
-    // Forgot
-    private void forgot() {
-        Intent intent = new Intent(LoginActivity.this,ForgotActivity.class);
         startActivity(intent);
     }
 
@@ -89,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Intent intent = new Intent(LoginActivity.this,DashboardActivity.class);
                         intent.putExtra("arrayUser",arrayUser);
                         startActivity(intent);
+                        finish();
                     }else{
                         Toast.makeText(LoginActivity.this,"Success",Toast.LENGTH_LONG).show();
                     }
@@ -99,6 +81,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this,"Please check your USERNAME or PASSWORD again! ",Toast.LENGTH_LONG).show();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnLogin:
+                login();
+                break;
+            case R.id.btnRegister:
+                register();
+                break;
         }
     }
 }

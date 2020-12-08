@@ -2,9 +2,9 @@ package com.example.bookingticket;
 
 public class ItemNews {
     public String tittle;
-    public int img;
+    public String img;
 
-    public ItemNews(String tittle, int img) {
+    public ItemNews(String tittle, String img) {
         this.tittle = tittle;
         this.img = img;
     }
@@ -17,11 +17,11 @@ public class ItemNews {
         this.tittle = tittle;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }

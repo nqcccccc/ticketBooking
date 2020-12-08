@@ -15,38 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookingTicket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PickTimeActivity">
-
-        </activity>
-        <!-- Done -->
+        <activity android:name=".NewsActivity"></activity>
+        <activity android:name=".PickTimeActivity"></activity> <!-- Done -->
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- Done -->
-        <activity android:name=".RegisterActivity">
-
-        </activity>
-        <!-- Done -->
-        <activity android:name=".DashboardActivity">
-
-        </activity>
-        <activity android:name=".MovieActivity">
-
-        </activity>
-        <activity android:name=".ForgotActivity">
-
-        </activity>
-        <activity android:name=".HistoryActivity">
-
-        </activity>
-        <!-- Done -->
-        <activity android:name=".AppInfoActivity">
-
-        </activity>
+        </activity> <!-- Done -->
+        <activity android:name=".RegisterActivity"></activity> <!-- Done -->
+        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".MovieActivity"></activity>
+        <activity android:name=".HistoryActivity"></activity> <!-- Done -->
+        <activity android:name=".AppInfoActivity"></activity>
     </application>
 
 </manifest>

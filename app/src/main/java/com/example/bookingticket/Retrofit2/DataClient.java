@@ -4,6 +4,7 @@ import com.example.bookingticket.Account;
 import com.example.bookingticket.BookInfo;
 import com.example.bookingticket.Comment;
 import com.example.bookingticket.MoiveInfo;
+import com.example.bookingticket.News;
 import com.example.bookingticket.Poster;
 import com.example.bookingticket.Show;
 import com.example.bookingticket.Slider;
@@ -91,5 +92,10 @@ public interface DataClient {
     @FormUrlEncoded
     @POST("getcmt.php")
     Call<List<Comment>> getComment(@Field("movie_id") Integer movie_id);
+
+    @FormUrlEncoded
+    @POST("news.php")
+    Call<List<News>> getNews(@Field("status") Integer status);
+
 
 }

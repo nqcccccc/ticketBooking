@@ -60,24 +60,23 @@
                 <!--Movie Select-->
                 <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
                     android:id="@+id/vp2Poster"
-                    android:background="@color/light_orange"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-
                     app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
                     app:icvp_scroll_duration="250"
                     app:icvp_center_page_scale_offset="30dp"
-                    app:icvp_min_page_scale_offset="0dp"
-                    app:icvp_max_page_scale="0.95"
+                    app:icvp_min_page_scale_offset="5dp"
+                    app:icvp_max_page_scale="0.8"
                     app:icvp_min_page_scale="0.55"
                     app:icvp_medium_scaled="false"/>
                 <!--News-->
                 <ListView
-                    android:id="@+id/lvNews"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:id="@+id/lvNews"/>
             </LinearLayout>
 
             <!--End Dashboard-->

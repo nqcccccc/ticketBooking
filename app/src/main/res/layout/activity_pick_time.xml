@@ -1,120 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".PickTimeActivity">
+
+    <com.github.badoualy.datepicker.DatePickerTimeline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dptDate"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/lvTime"/>
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridLayout"
+        android:columnCount="3"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:rowCount="3">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="A1"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSA1"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="A2"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSA2"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="A3"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSA3"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="B1"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSB1"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="B2"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSB2"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="B3"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSB3"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="C1"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSC1"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="C2"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSC2"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="C3"
+            android:layout_margin="10dp"
+            android:id="@+id/btnSC3"/>
+
+    </GridLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.github.badoualy.datepicker.DatePickerTimeline
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:padding="10dp">
+        <TextView
+            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/dptDate"/>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:id="@+id/lvTime"/>
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gridLayout"
-            android:columnCount="3"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:rowCount="3">
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="A1"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSA1"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="A2"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSA2"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="A3"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSA3"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="B1"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSB1"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="B2"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSB2"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="B3"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSB3"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="C1"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSC1"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="C2"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSC2"/>
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="C3"
-                android:layout_margin="10dp"
-                android:id="@+id/btnSC3"/>
-
-        </GridLayout>
-        <LinearLayout
+            android:text="Quantity :"
+            android:textSize="20dp"
+            android:id="@+id/tvQuantity"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout"
-            android:padding="10dp">
-            <TextView
-                android:layout_marginTop="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Quantity :"
-                android:textSize="20dp"
-                android:id="@+id/tvQuantity"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Seat :"
-                android:textSize="20dp"
-                android:id="@+id/tvSeat"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total :"
-                android:textSize="20dp"
-                android:id="@+id/tvTotal"/>
-        </LinearLayout>
-
-        <Button
+            android:text="Seat :"
+            android:textSize="20dp"
+            android:id="@+id/tvSeat"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BOOK NOW"
-            android:id="@+id/btnBookNow"/>
-
+            android:text="Total :"
+            android:textSize="20dp"
+            android:id="@+id/tvTotal"/>
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BOOK NOW"
+        android:id="@+id/btnBookNow"/>
 
-</ScrollView>
+
+
+
+</LinearLayout>

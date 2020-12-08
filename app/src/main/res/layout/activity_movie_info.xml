@@ -107,27 +107,46 @@
             android:layout_height="150dp"
             android:orientation="horizontal"
             android:layout_margin="10dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:id="@+id/imgAva"
-                android:src="@drawable/logo" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgAva"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comment"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btnComment"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
                 android:orientation="vertical">
+
                 <RatingBar
-                    android:layout_width="wrap_content"
+                    android:id="@+id/ratingMoive"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:numStars="5" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/radius_border"
+                    android:padding="10dp"
                     android:text="Add Comment"
+                    android:id="@+id/txtComment"
                     android:textColor="@android:color/darker_gray"/>
             </LinearLayout>
 
@@ -135,8 +154,9 @@
 
         <!--Comment & Rating -->
         <ListView
+            android:id="@+id/lvComment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:layout_margin="10dp"/>
     </LinearLayout>
 </ScrollView>

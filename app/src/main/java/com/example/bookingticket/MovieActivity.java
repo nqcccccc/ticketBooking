@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.MediaController;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -35,10 +38,14 @@ import retrofit2.Response;
 public class MovieActivity extends AppCompatActivity implements View.OnClickListener {
     private VideoView vvTrailer;
     private TextView tvMName,tvMGenre,tvMlength,tvMDate,tvMLang,tvMDes;
-    private Button btnMBook;
+    private Button btnMBook,btnComment;
     private CircleImageView imgAva;
     private int user;
     private ArrayList<Account> arrayUser = null;
+    private String user_ava,user_name,movie_id;
+    private RatingBar ratingMoive;
+    private EditText txtComment;
+    private ListView lvComment;
 
     ArrayList<MoiveInfo> arrayMovie = null;
     @Override
@@ -51,6 +58,60 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         intiData();
         getUser();
         setData();
+        loadCmt();
+
+    }
+
+    private void loadCmt() {
+        DataClient dataClient1 = APIUtils.getData();
+        Call<List<Comment>> callback = dataClient1.getComment(Integer.parseInt(movie_id));
+        callback.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                ArrayList<Comment> arrayCmt = (ArrayList<Comment>) response.body();
+                List<ItemComment> data = new ArrayList<>();
+                if(arrayCmt.size()>0){
+                    for(int i=0;i<arrayCmt.size();i++){
+                        data.add(new ItemComment(arrayCmt.get(i).getComment(),arrayCmt.get(i).getUserAva(),arrayCmt.get(i).getUserName(),Float.parseFloat(arrayCmt.get(i).getRating())));
+                    }
+                }else{
+                    Log.d("TAG","Empty ");
+                }
+                CommentAdapter commentAdapter = new CommentAdapter(MovieActivity.this,R.layout.comment_row,data);
+                lvComment.setAdapter(commentAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void upCmt() {
+        String comment = txtComment.getText().toString().trim();
+        float rating = ratingMoive.getRating();
+
+        DataClient dataClient1 = APIUtils.getData();
+        Call<String> callback = dataClient1.upComment(user_name,user_ava,Integer.parseInt(movie_id),comment,rating);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = response.body();
+                if (res.equals("Success")){
+                    ratingMoive.setRating(0);
+                    txtComment.setText("Add comment");
+                    loadCmt();
+                }else {
+                    Toast.makeText(MovieActivity.this,"Please try again !",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getUser() {
@@ -62,8 +123,8 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 arrayUser = (ArrayList<Account>) response.body();
 
                 if(arrayUser.size()>0){
-                    String url = arrayUser.get(0).getAvatar();
-                    Log.d("TAG", url);
+                    user_ava = arrayUser.get(0).getAvatar();
+                    user_name = arrayUser.get(0).getUser();
                     Picasso.get().load(arrayUser.get(0).getAvatar()).into(imgAva);
                 }else{
                     Log.d("TAG", "onResponse: ");
@@ -81,7 +142,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         arrayMovie = intent.getParcelableArrayListExtra("arrayMovie");
         user = intent.getIntExtra("user",1);
-
+        movie_id = arrayMovie.get(0).getIdMovie();
         Log.d("TAG", ""+user);
     }
 
@@ -120,8 +181,19 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         tvMDes = findViewById(R.id.tvMDes);
         imgAva = findViewById(R.id.imgAva);
         btnMBook = findViewById(R.id.btnMBook);
+        btnComment = findViewById(R.id.btnComment);
+        ratingMoive = findViewById(R.id.ratingMoive);
+        txtComment = findViewById(R.id.txtComment);
+        lvComment = findViewById(R.id.lvComment);
 
         btnMBook.setOnClickListener(this);
+        btnComment.setOnClickListener(this);
+        txtComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtComment.setText("");
+            }
+        });
     }
 
     @Override
@@ -132,12 +204,20 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MovieActivity.this,PickTimeActivity.class);
-        intent.putExtra("arrayUser",arrayUser);
-        intent.putExtra("id_movie",arrayMovie.get(0).getIdMovie());
-        intent.putExtra("movie_name",arrayMovie.get(0).getName());
+        switch (v.getId()){
+            case R.id.btnBookNow:
+                Intent intent = new Intent(MovieActivity.this,PickTimeActivity.class);
+                intent.putExtra("arrayUser",arrayUser);
+                intent.putExtra("id_movie",arrayMovie.get(0).getIdMovie());
+                intent.putExtra("movie_name",arrayMovie.get(0).getName());
 
-        startActivity(intent);
-        finish();
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.btnComment:
+                upCmt();
+                break;
+        }
+
     }
 }

@@ -2,10 +2,13 @@ package com.example.bookingticket.Retrofit2;
 
 import com.example.bookingticket.Account;
 import com.example.bookingticket.BookInfo;
+import com.example.bookingticket.Comment;
 import com.example.bookingticket.MoiveInfo;
 import com.example.bookingticket.Poster;
 import com.example.bookingticket.Show;
 import com.example.bookingticket.Slider;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -76,5 +79,17 @@ public interface DataClient {
     @FormUrlEncoded
     @POST("history.php")
     Call<List<Poster>> getHistoryPoster(@Field("name") String name);
+
+    @FormUrlEncoded
+    @POST("comment.php")
+    Call<String> upComment(@Field("user_name") String user_name,
+                            @Field("user_ava") String user_ava,
+                            @Field("movie_id") Integer movie_id,
+                            @Field("comment") String comment,
+                            @Field("rating") float rating);
+
+    @FormUrlEncoded
+    @POST("getcmt.php")
+    Call<List<Comment>> getComment(@Field("movie_id") Integer movie_id);
 
 }

@@ -135,6 +135,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 //                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
 //                    startActivity(intent);
                 }else if (arrayList.get(i).getItemName().equals("Logout") ){
+                    finish();
                     Intent intent = new Intent(DashboardActivity.this,LoginActivity.class);
                     startActivity(intent);
                 } else {
@@ -217,6 +218,20 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         NewsAdapter newsAdapter = new NewsAdapter(this,R.layout.news_row,data);
         lvNews.setAdapter(newsAdapter);
+
+        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (data.get(i).getTittle().equals("History") ){
+//                    Intent intent = new Intent(DashboardActivity.this,HistoryActivity.class);
+//                    startActivity(intent);
+                }else if (data.get(i).getTittle().equals("Logout") ) {
+                    finish();
+                    Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
     //End news

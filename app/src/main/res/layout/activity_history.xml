@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/forgot_act"
+    android:id="@+id/actHistory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -24,4 +24,4 @@
     </com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager>
 
 
-</LinearLayout>
+</LinearLayout >

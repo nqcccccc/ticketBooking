@@ -21,13 +21,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
         android:text="This is a Mobile Apps Development final project.
+                        \n\n Movie Ticket Booking Application
+                        \n\nTutor:
+                        \n  - Mr. Nguyễn Thanh Phước
+                        \n  - Mr. Mai Văn Mạnh
                         \n\nDevelopers:
                         \n  - Nguyễn Quốc Cường - 518H0003
                         \n  - Trần Thị Mỹ Nhi - 518H0543
-                        \n\nDescription:
-                        \n  - Starting screen includes
-                        \n  - Right side navigation bar includes customer's information, login/logout function, booking history and app infomation.
-                        \n  - "
+                        \n\nThis app is used for online booking movie ticket from cinema. It allows
+                        to access a list of currently playing movies, reading cinema's news, book
+                         multiple tickets at once in a showtime. We can also view movie feedback and
+                          check booking history.
+                         \nWe hope you enjoy this application. Thank you!
+                        \n\nThank you Mr. Nguyễn Thanh Phước and Mr.Mai Văn Mạnh for helping us to
+                        completing this project!!
+                        "
         android:textSize="20dp"
         android:textColor="@color/black"/>
 

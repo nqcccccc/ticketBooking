@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AppInfoActivity"
     android:background="@color/light_orange"
-    android:orientation="vertical">
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -39,4 +41,4 @@
         android:textSize="20dp"
         android:textColor="@color/black"/>
 
-</LinearLayout>
+</ScrollView>
